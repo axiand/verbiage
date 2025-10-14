@@ -6,6 +6,8 @@ module.exports.HomePageRoute = new RouteLeaf(
     "/",
     {
         "GET": (req) => {
+            req.setHead("X-Hello", "Hello, World!")
+
             req.set("Hello, World!")
 
             return req

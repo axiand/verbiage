@@ -59,7 +59,25 @@ When matching against the request path, named path parts take priority over gene
 
 Named path parts are case-sensitive. A request path of `/Users/1` won't match a route path of `/users/:id`.
 
-### I.III. Setup & Lifecycle
+### I.III. Headers
+
+Setting headers is done through the AppRequest's `setHead` method. By default, headers will merge into the first existing header of the same name:
+
+```js
+    req.setHead("X-Hello", "should be replaced")
+    req.setHead("X-Hello", "should be replacement")
+```
+
+However, passing `true` to the last (`forceNew`) argument will force the method to create a separate header. Useful for situations like e.g. `Set-Cookie`:
+
+```js
+    req.setHead("Set-Cookie", "Session=abcdef01234; Secure; SameSite=Strict", true)
+    req.setHead("Set-Cookie", "Some-Cosmetic-Value=1;", true)
+```
+
+Headers can be obtained using the `getHead` method or the `headers` property of AppRequest. They are represented as a `[<header name>, <header value>]` tuple.
+
+### I.IV. Setup & Lifecycle
 
 The Waiter server does not automatically start listening when the class is instantiated. Rather, `listen` must first be called. It is strongly recommended that all necessary route handlers be loaded *before* listening.
 
@@ -94,7 +112,7 @@ serv.addRoute(HelloWorldRoute)
 serv.listen(3000)
 ```
 
-### I.IV. Error handling
+### I.V. Error handling
 
 Waiter will automatically throw and present an HTTP 500 to the user upon a server-side error with no extra input required from the programmer. It does not however make any efforts to address data loss and partially completed tasks.
 
@@ -110,7 +128,7 @@ Example of implementing a request using streamed responses:
 ```js
 "GET": (req) => {
             /* Set then write headers. Using writeHead() marks the request as "streamed", enabling unique behaviour. */
-            req.headers["Content-Type"] = "video/mp4"
+            req.setHead("Content-Type", "video/mp4")
             req.writeHead()
 
             /* Stream a file to the client. */
