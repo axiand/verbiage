@@ -1,11 +1,14 @@
 const { RouteLeaf } = require("../../lib/waiter/RouteTree");
 
+const { createReadStream } = require("node:fs")
+
 module.exports.HomePageRoute = new RouteLeaf(
     "/",
     {
-        "GET": (data) => {
-            data.body = "Hi!"
-            return data
+        "GET": (req) => {
+            req.set("Hello, World!")
+
+            return req
         }
     },
 )
@@ -13,9 +16,9 @@ module.exports.HomePageRoute = new RouteLeaf(
 module.exports.PageTestRoute = new RouteLeaf(
     "/w/:user/pages/+path",
     {
-        "GET": (data) => {
-            data.body = JSON.stringify(data.args)
-            return data
+        "GET": (req) => {
+            req.set(SON.stringify(req.args))
+            return req
         }
     },
 )

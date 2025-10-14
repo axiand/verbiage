@@ -11,7 +11,7 @@ The `RouteTree.js` module exposes:
 - `RouteTree`, the data structure used to retrieve and add application routes. It takes the form of a recursive tree of `RouteLeaf` instances.
 - `RouteLeaf`, which represents a single route where each function (handler) maps to an HTTP request method.
 
-There is also the `AppRequest` class, exposed by `AppRequest.js`, which is an abstraction over the request and response objects. All request handlers are expected to receive and return back `AppRequest` instances.
+There is also the `AppRequest` class, exposed by `AppRequest.js`, which is an abstraction over the request and response objects. All request handlers are expected to receive and return back `AppRequest` instances. Waiter will send the status code and headers specified in the `status` and `headers` props respectively.
 
 Example of importing and instantiating a Waiter server:
 
@@ -99,3 +99,29 @@ serv.listen(3000)
 Waiter will automatically throw and present an HTTP 500 to the user upon a server-side error with no extra input required from the programmer. It does not however make any efforts to address data loss and partially completed tasks.
 
 Any request whose path/method combination fails to map to any existing route handler will return an HTTP 501 Not Implemented error code.
+
+
+### II. Streamed Responses
+
+By default, Waiter uses on-demand responses, meaning the headers and body supplied in the AppRequest object are sent to the client once the request logic finishes. This is good enough for most purposes, however for certain cases like transferring large files, apps may benefit from being able to stream responses chunk-by-chunk.
+
+Example of implementing a request using streamed responses:
+
+```js
+"GET": (req) => {
+            /* Set then write headers. Using writeHead() marks the request as "streamed", enabling unique behaviour. */
+            req.headers["Content-Type"] = "video/mp4"
+            req.writeHead()
+
+            /* Stream a file to the client. */
+            let stream = createReadStream("./vid.mp4")
+            stream.on('data', (chunk) => { req.write(chunk) })
+            stream.on('end', () => { req.end() })
+
+            /* 
+                AppRequest objects can be returned before the logic has finished. It is the programmer's
+                responsibility to call end() once the data is actually done streaming.
+            */
+            return req
+        }
+```
