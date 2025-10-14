@@ -27,7 +27,7 @@ Verbiage is an ambitious project. Here's the full run-down on what you can come 
 - [ ] **Waiter**
 - - [x] Basic routing
 - - [x] Generic parameters
-- - [ ] Streamed responses
+- - [x] Streamed responses
 - - [ ] Cookies
 - - [ ] Middleware (defined in route, cascades to child routes, i.e. `requiresAuth` on `/secrets` applies to `/secrets/shh` and `/secrets/shush`)
 - [ ] **Lavender**
