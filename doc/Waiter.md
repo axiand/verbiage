@@ -118,8 +118,27 @@ Waiter will automatically throw and present an HTTP 500 to the user upon a serve
 
 Any request whose path/method combination fails to map to any existing route handler will return an HTTP 501 Not Implemented error code.
 
+### II. Middleware
 
-### II. Streamed Responses
+Middlewares are executed in order before the main request handler is processed. They can be attached to a RouteTree using its `use` method, or to the root node with `App.use()`, producing a globally-applied middleware. Additionally, routes can have middlewares without having any handlers attached.
+
+Middlewares will cascade down to deeper routes. A middleware attached to `/admin` will also apply to e.g. `/admin/users` and `/admin/logs`. Middlewares are executed in order of specificity (in other words - ones defined in deeper routes will execute after ones defined in, say, the root node).
+
+Middlewares receive the AppRequest object just like the main handler, and the AppRequest object is reused between middlewares and the main handler. This means state can be persisted down to the handler, useful for things like auth information. The return value of middlewares isn't used for anything.
+
+Consider this example implementation:
+
+```js
+ExampleRoute = new RouteLeaf("/requires_auth", 
+    /* -- snip application logic -- */
+).use((req) => {
+    /* -- snip more application logic -- */
+})
+
+app.server.addRoute(ExampleRoute)
+```
+
+### III. Streamed Responses
 
 By default, Waiter uses on-demand responses, meaning the headers and body supplied in the AppRequest object are sent to the client once the request logic finishes. This is good enough for most purposes, however for certain cases like transferring large files, apps may benefit from being able to stream responses chunk-by-chunk.
 
@@ -144,7 +163,7 @@ Example of implementing a request using streamed responses:
         }
 ```
 
-### III. Cookies
+### IV. Cookies
 
 Waiter includes basic helpers for serialization and deserialization of cookies.
 
