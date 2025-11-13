@@ -1,4 +1,5 @@
-const { RouteLeaf } = require("../../lib/waiter/RouteTree");
+const { RouteLeaf } = require("../../lib/waiter/RouteTree")
+const { Cookie } = require("../../lib/waiter/AppRequest")
 
 const { createReadStream } = require("node:fs")
 
@@ -19,8 +20,25 @@ module.exports.PageTestRoute = new RouteLeaf(
     "/w/:user/pages/+path",
     {
         "GET": (req) => {
-            req.set(SON.stringify(req.args))
+            req.set(JSON.stringify(req.args))
             return req
         }
     },
+)
+
+module.exports.CookieTestRoute = new RouteLeaf(
+    "/cookie/:foo",
+    {
+        "GET": (req) => {
+            //console.log(req.cookies)
+
+            let cookie = new Cookie("sample", decodeURIComponent(req.args.foo))
+            cookie.sameSite = cookie.SameSiteValue.Lax
+            cookie.expiresAt = Date.now() + 120_000
+            cookie.isSecure = true
+
+            req.setCookie(cookie)
+            return req
+        }
+    }
 )
