@@ -24,12 +24,12 @@ In the meantime, feel free to take a look at and play around with what's already
 
 Verbiage is an ambitious project. Here's the full run-down on what you can come to expect:
 
-- [ ] **Waiter**
+- [x] **Waiter**
 - - [x] Basic routing
 - - [x] Generic parameters
 - - [x] Streamed responses
-- - [ ] Cookies
-- - [ ] Middleware (defined in route, cascades to child routes, i.e. `requiresAuth` on `/secrets` applies to `/secrets/shh` and `/secrets/shush`)
+- - [x] Cookies
+- - [x] Middleware (defined in route, cascades to child routes, i.e. `requiresAuth` on `/secrets` applies to `/secrets/shh` and `/secrets/shush`)
 - [ ] **Lavender**
 - - [ ] Basic HTML parsing/substitution (be able to insert a string into the page)
 - - [ ] Object traversal - `{object.property}`
