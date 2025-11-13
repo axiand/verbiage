@@ -143,3 +143,30 @@ Example of implementing a request using streamed responses:
             return req
         }
 ```
+
+### III. Cookies
+
+Waiter includes basic helpers for serialization and deserialization of cookies.
+
+Cookies received from the client can be accessed via the `cookies` property of the AppRequest. Cookies are only parsed once this property is called upon.
+
+Waiter provides the `Cookie` class, which serves as an abstract representation of a cookie and a means of serializing it. It can be used in conjunction with `AppRequest.setCookie()` to quickly instantiate and set cookies. Consider this example implementation:
+
+```js
+const { Cookie } = require("/lib/waiter/AppRequest")
+
+// -snip-
+
+"GET": (req) => {
+            let cookie = new Cookie("sample", "Some-Value")
+            cookie.sameSite = cookie.SameSiteValue.Lax
+            cookie.expiresAt = Date.now() + 120_000
+            cookie.isSecure = true
+
+            req.setCookie(cookie)
+            return req
+        }
+
+// -> HTTP 200
+// -> Set-Cookie: sample=Some-Value;Expires=Thu, 13 Nov 2025 13:04:03 GMT;SameSite=Lax;Secure;
+```
