@@ -15,6 +15,19 @@ class App {
     start() {
         this.server.listen(3001)
         console.log('app > listening on http://localhost:3001/')
+
+        return this
+    }
+
+    /* 
+        Attaches a middleware to the root node of the RouteTree.
+        This essentially means the middleware will be found on every search,
+        making a global middleware.
+    */
+    use(fn) {
+        this.server.routes.leaves.use(fn)
+
+        return this
     }
 
     loadRoutesFromDir(where) {

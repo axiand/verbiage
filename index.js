@@ -6,4 +6,6 @@ app = new App()
 
 app.loadRoutesFromDir(join(__dirname, '/src/routes'))
 
-app.start()
+app
+    .use(() => { console.log("Hello from Middleware!") })
+    .start()

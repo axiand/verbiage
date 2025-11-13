@@ -16,6 +16,9 @@ module.exports.HomePageRoute = new RouteLeaf(
     },
 )
 
+module.exports.PageMiddlewareRoute = new RouteLeaf("/w")
+    .use(() => { console.log("Is this thing on?") })
+
 module.exports.PageTestRoute = new RouteLeaf(
     "/w/:user/pages/+path",
     {
