@@ -1,8 +1,6 @@
 const { RouteLeaf } = require("../../lib/waiter/RouteTree")
 const { Cookie } = require("../../lib/waiter/AppRequest")
 
-const { createReadStream } = require("node:fs")
-
 module.exports.HomePageRoute = new RouteLeaf(
     "/",
     {
