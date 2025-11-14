@@ -5,5 +5,6 @@ const { App } = require('./src/App.js')
 app = new App()
 
 app.loadRoutesFromDir(join(__dirname, '/src/routes'))
+app.loadComponentsFromDir(join(__dirname, '/src/components'))
 
 app.start()

@@ -1,7 +1,8 @@
-const { readdirSync } = require('node:fs')
-const { join } = require('node:path')
+const { readdirSync, readFileSync, statSync, existsSync } = require('node:fs')
+const { join, parse } = require('node:path')
 
 const { Waiter } = require('../lib/waiter/WaiterServer.js')
+const { Component } = require('../lib/lavender/Component.js')
 
 class App {
     server
@@ -31,6 +32,7 @@ class App {
     }
 
     loadRoutesFromDir(where) {
+        console.log("app > Importing routes...")
         let files = readdirSync(where)
 
         files.forEach((f) => {
@@ -38,8 +40,31 @@ class App {
             for (let routeName in routes) {
                 let route = routes[routeName]
                 this.server.addRoute(route)
-                console.log(`Imported ${route.path} from ${f}`)
+                console.log(`app/routes > Imported ${route.path} from ${f}`)
             }
+        })
+    }
+
+    loadComponentsFromDir(where) {
+        console.log("app > Importing components...")
+        let files = readdirSync(where, { recursive: true })
+
+        /*
+            - Get a list of all .html files in the directory.
+            - Strip away their extensions, see if they have a .js counterpart.
+            - Combine the HTML and JS, pack it into a new Component instance.
+            - Load component into Lavender.
+        */
+        files.forEach((f) => {
+            if (statSync(join(where, f)).isDirectory()) return
+            if (!f.endsWith(".html")) return
+
+            let basePart = parse(f).dir + "/" + parse(f).name
+            let hasScript = existsSync(join(where, basePart) + ".js")
+            console.log(basePart, hasScript)
+
+            let template = readFileSync(join(where, basePart) + ".html", { encoding: "utf8" })
+            let component = new Component(template)
         })
     }
 }
