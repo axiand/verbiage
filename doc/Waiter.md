@@ -138,6 +138,8 @@ ExampleRoute = new RouteLeaf("/requires_auth",
 app.server.addRoute(ExampleRoute)
 ```
 
+When a middleware returns an AppRequest, it'll be considered the final representation of the request and will be sent to the client, further middlewares and the request handler will not execute. This can be used to do things like presenting HTTP 400 errors in an authentication scenario. A similar situation occurs when a middleware throws an error. Any other return values will be silently rejected.
+
 ### III. Streamed Responses
 
 By default, Waiter uses on-demand responses, meaning the headers and body supplied in the AppRequest object are sent to the client once the request logic finishes. This is good enough for most purposes, however for certain cases like transferring large files, apps may benefit from being able to stream responses chunk-by-chunk.
