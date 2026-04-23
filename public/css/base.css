@@ -730,6 +730,7 @@ table {
 .table-wrapper {
     display: block;
     overflow-x: auto;
+    scrollbar-width: thin;
 }
 
 thead {
