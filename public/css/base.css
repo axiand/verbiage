@@ -230,6 +230,10 @@ body {
     margin: 2em 0em;
 }
 
+.preview-box {
+    max-height: 90vh;
+}
+
 .preview-item {
     max-width: 85%;
 }
