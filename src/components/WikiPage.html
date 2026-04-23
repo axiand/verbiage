@@ -106,7 +106,7 @@
                 <li class="sidebar-file" data-name="{put item.file.name}" data-path="{put item.file.pathNormalized}"
                     data-is-directory="{echo item.file.isDirectory}" data-size="{echo item.file.size}"
                     data-created-at="{echo item.file.createdAt}" data-modified-at="{echo item.file.modifiedAt}"
-                    data-content-type="{echo item.file.mimeType}">
+                    data-content-type="{echo item.file.mimeType}" data-is-media="{echo item.file.isMediaFile}">
                     <a href="/{put @currentWiki}/w/{echo item.file.pathStripped}">
                         <span>{echo item.icon} {put item.file.name}</span>
                     </a>
