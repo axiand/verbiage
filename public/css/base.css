@@ -230,7 +230,7 @@ body {
     margin: 2em 0em;
 }
 
-.preview-box {
+.preview-box video {
     max-height: 90vh;
 }
 
