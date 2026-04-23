@@ -1,7 +1,9 @@
 {if self.list.length}
 <ul class="media-list">
     {for self.list img}
-    <li class="media-list-item">
+    <li class="media-list-item" data-name="{put img.file.name}" data-path="{put img.file.pathNormalized}"
+        data-size="{echo img.file.size}" data-created-at="{echo img.file.createdAt}"
+        data-modified-at="{echo img.file.modifiedAt}" data-content-type="{echo img.file.mimeType}">
         <div class="thumb-container">
             <a class="media-list-thumb" href="/{put self.wiki}/w/{echo img.file.pathNormalized}">
                 <img src="/{put self.wiki}/raw/{echo img.file.pathNormalized}" title="{echo img.file.name}">

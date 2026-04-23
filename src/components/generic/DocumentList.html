@@ -1,7 +1,11 @@
 {if self.list.length}
 <ul class="document-list">
     {for self.list doc}
-    <li class="document-list-item" href="/{echo self.wiki}/w/{echo doc.file.pathStripped}">
+    <li class="document-list-item" href="/{echo self.wiki}/w/{echo doc.file.pathStripped}"
+        data-name="{put doc.file.name}" data-path="{put doc.file.pathNormalized}" data-size="{echo doc.file.size}"
+        data-created-at="{echo doc.file.createdAt}" data-modified-at="{echo doc.file.modifiedAt}"
+        data-content-type="{echo doc.file.mimeType}" data-title="{put doc.features.title}"
+        data-description="{put doc.features.description}" data-excerpt="{put doc.features.excerpt}">
         <a class="wraplink" href="/{echo self.wiki}/w/{echo doc.file.pathStripped}"></a>
         <div>
             <a href="/{echo self.wiki}/w/{echo doc.file.pathStripped}" class="document-list-item-title">
