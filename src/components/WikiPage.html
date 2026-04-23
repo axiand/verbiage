@@ -105,7 +105,7 @@
                 {for fileList item}
                 <li class="sidebar-file">
                     <a href="/{put @currentWiki}/w/{echo item.file.pathStripped}">
-                        {echo item.icon} {put item.file.name}
+                        <span>{echo item.icon} {put item.file.name}</span>
                     </a>
                 </li>
                 {end}

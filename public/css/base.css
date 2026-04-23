@@ -37,6 +37,10 @@ body {
 }
 
 @media (width < 76em) {
+    body {
+        --gallery-item-size: 14em;
+    }
+
     .site-header {
         font-size: 18pt;
         text-align: center;
@@ -200,15 +204,23 @@ body {
 }
 
 .sidebar-file {
-    margin-bottom: 0.45em;
+    padding: 0.25em 0;
     overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
+    transition: background-color 0.15s;
+}
+
+.sidebar-file:hover {
+    background-color: var(--background-target);
 }
 
 .sidebar-file a {
     color: var(--accent) !important;
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    width: 100%;
+    display: block;
 }
 
 .preview-box {
@@ -656,6 +668,7 @@ button:active {
 
 .media-gallery-container * {
     max-height: var(--gallery-item-size);
+    max-width: 100%;
 }
 
 .media-gallery-caption {
