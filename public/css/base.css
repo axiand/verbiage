@@ -144,6 +144,7 @@ body {
     width: 100%;
     padding: var(--document-padding);
     word-break: break-word;
+    overflow: auto;
 }
 
 .page:has(.document-header) {
@@ -726,8 +727,18 @@ table {
     border-collapse: collapse;
 }
 
+.table-wrapper {
+    display: block;
+    overflow-x: auto;
+}
+
 thead {
     background-color: var(--background-1);
+    text-wrap: nowrap;
+}
+
+tbody>tr:nth-child(1) {
+    text-wrap: nowrap;
 }
 
 th,
