@@ -85,13 +85,15 @@ Verbiage is an ambitious project. Here's the full run-down on what you can come 
 - - [ ] Bag - queryable map of objects serialized to JSON lines
 - - - [ ] Deserialize
 - - - [ ] Serialize
-- - - [ ] Append
+- - - [ ] Append/Upsert
+- - - [ ] Update
 - - - [ ] Delete
-- - - [ ] Limit result count
-- - - [ ] Order results by given property
-- - - [ ] Query based on greater-than/less-than
+- - - [X] Limit result count
+- - - [X] Order results by given property
+- - - [X] Query based on greater-than/less-than
 - - - [ ] Query based on property equality
 - - - [ ] Query based on arbitrary function
+- - - [ ] Join queries
 - [ ] **Verbiage**
 - - [X] CRUD wiki pages
 - - [X] Arbitrary file upload
