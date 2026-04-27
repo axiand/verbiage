@@ -91,8 +91,8 @@ Verbiage is an ambitious project. Here's the full run-down on what you can come 
 - - - [X] Limit result count
 - - - [X] Order results by given property
 - - - [X] Query based on greater-than/less-than
-- - - [ ] Query based on property equality
-- - - [ ] Query based on arbitrary function
+- - - [X] Query based on property equality
+- - - [X] Query based on arbitrary function
 - - - [ ] Join queries
 - [ ] **Verbiage**
 - - [X] CRUD wiki pages
